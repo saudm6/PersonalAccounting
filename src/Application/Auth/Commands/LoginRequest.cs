@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace PersonalAccounting.Application.Auth;
 
-internal class RegisterRequest
-{
-
-
-
-}
+public record LoginRequest(
+    string Email,
+    string Password
+    );
