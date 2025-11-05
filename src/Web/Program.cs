@@ -36,6 +36,7 @@ app.UseExceptionHandler(options => { });
 
 app.Map("/", () => Results.Redirect("/api")); // Link to new APIs
 
+// Where the endpoints ARE mapped
 app.MapEndpoints(); // Link to new APIs
 
 app.Run();

@@ -8,8 +8,13 @@ using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace PersonalAccounting.Web.Endpoints;
 
+// Forwords work to application layer but from where does it take the data from????
+
+// All APIs thay are start with /api/TodoItems are defined here
+// All APIs will be grouped under /api/TodoItems because of the RouteGroupBuilder passed in
 public class TodoItems : EndpointGroupBase
 {
+    // Build group of routes that share common URL (RouteGroupBuilder)
     public override void Map(RouteGroupBuilder groupBuilder)
     {
         groupBuilder.MapGet(GetTodoItemsWithPagination).RequireAuthorization();
