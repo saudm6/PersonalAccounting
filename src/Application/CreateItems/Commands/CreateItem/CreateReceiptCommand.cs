@@ -51,7 +51,7 @@ public class CreateReceiptCommandHandler : IRequestHandler<CreateReceiptCommand,
     public async Task<int> Handle(CreateReceiptCommand request, CancellationToken cancellationToken)
     {
 
-        //Create Receipt 
+        // Create Receipt 
         var recepitEntity = new Receipt
         {
             ReceiptName = request.ReceiptName,
@@ -59,7 +59,9 @@ public class CreateReceiptCommandHandler : IRequestHandler<CreateReceiptCommand,
             ReceiptTotal = request.ReceiptTotal
         };
 
-        //Create ReceiptItem
+
+
+        // Create ReceiptItem
         var recepitItemEntity = new ReceiptItem
         {
             ItemName = request.ItemName,
@@ -69,10 +71,14 @@ public class CreateReceiptCommandHandler : IRequestHandler<CreateReceiptCommand,
             TotalPrice = request.TotalPrice,
         };
 
-        //Add ReceiptItem to Receipts
-        _context.Receipts.Add(recepitEntity);
-        _context.ReceiptItems.Add(recepitItemEntity);
+        // Add ReceiptItem to Receipts
 
-        return 0;
+        recepitEntity.ReceiptItems.Add(recepitItemEntity);
+
+        _context.Receipts.Add(recepitEntity);
+
+        await _context.SaveChangesAsync(cancellationToken);
+
+        return recepitEntity.Id;
     }
 }

@@ -15,6 +15,10 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 
     public DbSet<TodoItem> TodoItems => Set<TodoItem>();
 
+    public DbSet<ReceiptItem> ReceiptItems => Set<ReceiptItem>();
+
+    public DbSet<Receipt> Receipts => Set<Receipt>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
