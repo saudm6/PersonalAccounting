@@ -23,7 +23,7 @@ else
 
 //app.UseHealthChecks("/health");
 app.UseHttpsRedirection();
-//app.UseStaticFiles();
+app.UseStaticFiles();
 
 app.UseSwaggerUi(settings =>
 {

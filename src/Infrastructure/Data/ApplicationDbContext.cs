@@ -22,6 +22,20 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
+        builder.Entity<Receipt>()
+            .HasMany(r => r.ReceiptItems)
+            .WithOne(ri => ri.Receipt)
+            .HasForeignKey(ri => ri.ReceiptId)
+            .OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<Receipt>().Property(r => r.ReceiptTotal)
+            .HasColumnType("decimal(18,2)")
+            .HasDefaultValue(0M);
+        builder.Entity<ReceiptItem>().Property(ri => ri.ItemPrice)
+            .HasColumnType("decimal(18,2)")
+            .HasDefaultValue(0M);
+        builder.Entity<ReceiptItem>().Property(ri => ri.TotalPrice)
+            .HasColumnType("decimal(18,2)")
+            .HasDefaultValue(0M);
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
 }

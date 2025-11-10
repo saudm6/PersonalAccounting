@@ -11,20 +11,23 @@ using PersonalAccounting.Domain.Events;
 
 namespace PersonalAccounting.Application.CreateItems.Commands.CreateItem;
 
+// Get all
+// Get by Id
+
 public class CreateReceiptCommand : IRequest<int>
 {
-    // Receipt properties
     public string? ReceiptName { get; init; }
     public DateOnly ReceiptDate { get; init; }
-    public decimal ReceiptTotal { get; init; }
-    public List<ReceiptItem> ReceiptItems { get; init; } = new();
 
-    // ReceiptItem properties
+    public List<ReceiptItemR> ReceiptItems { get; init; } = new();
+}
+
+public class ReceiptItemR
+{
     public string? ItemName { get; init; }
     public string? ItemDescription { get; init; }
     public decimal ItemPrice { get; init; }
     public int ItemQuantity { get; init; }
-    public decimal TotalPrice { get; init; }
 }
 
 public class CreateReceiptCommandHandler : IRequestHandler<CreateReceiptCommand, int>
@@ -36,18 +39,6 @@ public class CreateReceiptCommandHandler : IRequestHandler<CreateReceiptCommand,
         _context = context;
     }
 
-    public class ItemContext : DbContext
-    {
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Receipt>()              // Refrence receipt entity
-                .HasMany(r => r.ReceiptItems)           // Receipt has many ReceiptItems
-                .WithOne(ri => ri.Receipt)              // Each ReceiptItem has one Receipt
-                .HasForeignKey(ri => ri.ReceiptId);     // ReceiptId is the FK in ReceiptItem
-        }
-    }
-
-
     public async Task<int> Handle(CreateReceiptCommand request, CancellationToken cancellationToken)
     {
 
@@ -55,25 +46,21 @@ public class CreateReceiptCommandHandler : IRequestHandler<CreateReceiptCommand,
         var recepitEntity = new Receipt
         {
             ReceiptName = request.ReceiptName,
-            ReceiptDate = request.ReceiptDate,
-            ReceiptTotal = request.ReceiptTotal
+            ReceiptDate = request.ReceiptDate
         };
 
 
-
-        // Create ReceiptItem
-        var recepitItemEntity = new ReceiptItem
+        foreach (var receiptItem in request.ReceiptItems)
         {
-            ItemName = request.ItemName,
-            ItemDescription = request.ItemDescription,
-            ItemPrice = request.ItemPrice,
-            ItemQuantity = request.ItemQuantity,
-            TotalPrice = request.TotalPrice,
-        };
+            var recepitItemEntity = ReceiptItem.Create(receiptItem.ItemName,
+                receiptItem.ItemPrice,
+                receiptItem.ItemQuantity,
+                receiptItem.ItemDescription, recepitEntity);
 
-        // Add ReceiptItem to Receipts
 
-        recepitEntity.ReceiptItems.Add(recepitItemEntity);
+            recepitEntity.AddItem(recepitItemEntity);
+        }
+
 
         _context.Receipts.Add(recepitEntity);
 
