@@ -11,6 +11,7 @@ public class Receipt: EndpointGroupBase
     public override void Map(RouteGroupBuilder groupBuilder)
     {
         groupBuilder.MapPost(CreateReceiptItem);
+        groupBuilder.MapGet(GetAllReceipts);
     }
     public async Task<Created<int>> CreateReceiptItem(ISender sender, CreateReceiptCommand command)
     {

@@ -37,6 +37,24 @@
             }
           }
         }
+      },
+      "get": {
+        "tags": [
+          "Receipt"
+        ],
+        "operationId": "GetAllReceipts",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAllReceiptVm"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/api/TodoItems": {
@@ -805,6 +823,96 @@
         }
       },
       "ReceiptItemR": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "itemName": {
+            "type": "string",
+            "nullable": true
+          },
+          "itemDescription": {
+            "type": "string",
+            "nullable": true
+          },
+          "itemPrice": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "itemQuantity": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "GetAllReceiptVm": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "receipts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReceiptLookupDto"
+            }
+          }
+        }
+      },
+      "ReceiptLookupDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "receiptName": {
+            "type": "string",
+            "nullable": true
+          },
+          "receiptDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "receiptItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReceiptDto"
+            }
+          }
+        }
+      },
+      "ReceiptDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "itemName": {
+            "type": "string",
+            "nullable": true
+          },
+          "itemDescription": {
+            "type": "string",
+            "nullable": true
+          },
+          "itemPrice": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "itemQuantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalPrice": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReceiptItemDto"
+            }
+          }
+        }
+      },
+      "ReceiptItemDto": {
         "type": "object",
         "additionalProperties": false,
         "properties": {

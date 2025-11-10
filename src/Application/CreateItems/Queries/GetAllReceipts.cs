@@ -14,7 +14,6 @@ using PersonalAccounting.Domain.Enums;
 namespace PersonalAccounting.Application.CreateItems.Queries;
 
 
-[Authorize]
 public record GetAllReceipts : IRequest<GetAllReceiptVm>;
 public class GetAllReceiptsHandler : IRequestHandler<GetAllReceipts, GetAllReceiptVm>
 {
@@ -27,16 +26,18 @@ public class GetAllReceiptsHandler : IRequestHandler<GetAllReceipts, GetAllRecei
         _mapper = mapper;
     }
 
+    
     public async Task<GetAllReceiptVm> Handle(GetAllReceipts request, CancellationToken cancellationToken)
     {
-        var receipts = await _context.Receipts
-            .AsNoTracking()
-            .ProjectTo<ReceiptLookupDto>(_mapper.ConfigurationProvider)
-            .OrderBy(r => r.ReceiptName)
-            .ToListAsync(cancellationToken);
+
+        // Issue under here
         return new GetAllReceiptVm
         {
-            Receipts = receipts
+            Receipts = await _context.Receipts
+                .AsNoTracking()
+                .ProjectTo<ReceiptLookupDto>(_mapper.ConfigurationProvider)
+                .OrderBy(r => r.ReceiptName)
+                .ToListAsync(cancellationToken)
         };
     }
 }
