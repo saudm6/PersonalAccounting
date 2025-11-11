@@ -31,7 +31,7 @@ public class GetAllReceiptsHandler : IRequestHandler<GetAllReceipts, GetAllRecei
     public async Task<GetAllReceiptVm> Handle(GetAllReceipts request, CancellationToken cancellationToken)
     {
 
-        // Issue under here
+        // Fetch all receipts from the database, map them to DTOs, and return them in a view model
         return new GetAllReceiptVm
         {
             Receipts = await _context.Receipts

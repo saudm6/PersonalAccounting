@@ -76,8 +76,15 @@
           }
         ],
         "responses": {
-          "204": {
-            "description": ""
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetReceiptByIdVm"
+                }
+              }
+            }
           }
         }
       }
@@ -932,6 +939,18 @@
           "totalPrice": {
             "type": "number",
             "format": "decimal"
+          }
+        }
+      },
+      "GetReceiptByIdVm": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "receipts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReceiptLookupDto"
+            }
           }
         }
       },

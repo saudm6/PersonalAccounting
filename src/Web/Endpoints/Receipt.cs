@@ -32,9 +32,9 @@ public class Receipt: EndpointGroupBase
     }
 
     // GET api/receipt/{id}
-    public async Task<Ok<GetReceiptByIdVm>> GetReceiptById(ISender sender)
+    public async Task<Ok<GetReceiptByIdVm>> GetReceiptById(ISender sender, int id, CancellationToken cancellationToken)
     {
-        var vm = await sender.Send(new GetReceiptById().Id);
+        var vm = await sender.Send(new GetReceiptById { Id = id}, cancellationToken);
 
         return TypedResults.Ok(vm);
     }
