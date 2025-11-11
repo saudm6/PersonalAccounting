@@ -10,10 +10,10 @@ public class TodoLists : EndpointGroupBase
 {
     public override void Map(RouteGroupBuilder groupBuilder)
     {
-        groupBuilder.MapGet(GetTodoLists).RequireAuthorization();
-        groupBuilder.MapPost(CreateTodoList).RequireAuthorization();
-        groupBuilder.MapPut(UpdateTodoList, "{id}").RequireAuthorization();
-        groupBuilder.MapDelete(DeleteTodoList, "{id}").RequireAuthorization();
+        groupBuilder.MapGet(GetTodoLists);
+        groupBuilder.MapPost(CreateTodoList);
+        groupBuilder.MapPut(UpdateTodoList, "{id}");
+        groupBuilder.MapDelete(DeleteTodoList, "{id}");
     }
 
     public async Task<Ok<TodosVm>> GetTodoLists(ISender sender)
