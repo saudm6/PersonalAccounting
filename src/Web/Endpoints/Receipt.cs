@@ -14,6 +14,7 @@ public class Receipt: EndpointGroupBase
         groupBuilder.MapPost(CreateReceiptItem);
         groupBuilder.MapGet(GetAllReceipts);
         groupBuilder.MapGet(GetReceiptById, "{id}");
+        groupBuilder.MapDelete(DeleteReceiptById, "{id}");
     }
 
     // POST api/receipt
@@ -37,5 +38,13 @@ public class Receipt: EndpointGroupBase
         var vm = await sender.Send(new GetReceiptById { Id = id}, cancellationToken);
 
         return TypedResults.Ok(vm);
+    }
+
+    // DELETE api/receipt/{id}
+    public async Task<NoContent> DeleteReceiptById(ISender sender, int id)
+    {
+        await sender.Send(new DeleteReceiptById(id));
+
+        return TypedResults.NoContent();
     }
 }
