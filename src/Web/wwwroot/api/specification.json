@@ -57,6 +57,31 @@
         }
       }
     },
+    "/api/Receipt/{id}": {
+      "get": {
+        "tags": [
+          "Receipt"
+        ],
+        "operationId": "GetReceiptById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/api/TodoItems": {
       "get": {
         "tags": [
@@ -848,6 +873,10 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
+          },
           "receipts": {
             "type": "array",
             "items": {

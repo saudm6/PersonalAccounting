@@ -7,9 +7,8 @@ using PersonalAccounting.Application.CreateItems.Dto;
 
 namespace PersonalAccounting.Application.CreateItems.Queries;
 
+// View Model for getting receipt by Id
 public class GetReceiptByIdVm
 {
-    // Should this be only Get? or can it be Get and Set?
-    public Guid Id { get; set; }
     public IReadOnlyCollection<ReceiptLookupDto> Receipts { get; init; } = Array.Empty<ReceiptLookupDto>();
 }

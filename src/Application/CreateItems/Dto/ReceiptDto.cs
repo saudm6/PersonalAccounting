@@ -10,13 +10,14 @@ namespace PersonalAccounting.Application.CreateItems.Dto;
 
 public class ReceiptDto
 {
-
+    // Dto for receipt items
     public string? ItemName { get; set; }
     public string? ItemDescription { get; set; }
     public decimal ItemPrice { get; set; } = 0M;
     public int ItemQuantity { get; set; }
     public decimal TotalPrice { get; set; } = 0M;
 
+    // Map Receipt to ReceiptDto
     private class Mapping : Profile
     {
         public Mapping()

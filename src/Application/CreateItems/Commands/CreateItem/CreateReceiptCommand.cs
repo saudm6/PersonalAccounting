@@ -11,17 +11,17 @@ using PersonalAccounting.Domain.Events;
 
 namespace PersonalAccounting.Application.CreateItems.Commands.CreateItem;
 
-// Get all
-// Get by Id
-
+// Command for creating a new receipt with its items
 public class CreateReceiptCommand : IRequest<int>
 {
+    // Receipt details for the command
     public string? ReceiptName { get; init; }
     public DateOnly ReceiptDate { get; init; }
 
     public List<ReceiptItemR> ReceiptItems { get; init; } = new();
 }
 
+// Receipt item details for the command
 public class ReceiptItemR
 {
     public string? ItemName { get; init; }
@@ -30,8 +30,10 @@ public class ReceiptItemR
     public int ItemQuantity { get; init; }
 }
 
+// Handler for processing the CreateReceiptCommand
 public class CreateReceiptCommandHandler : IRequestHandler<CreateReceiptCommand, int>
 {
+    // Database context for handling the command
     private readonly IApplicationDbContext _context;
 
     public CreateReceiptCommandHandler(IApplicationDbContext context)
@@ -39,6 +41,7 @@ public class CreateReceiptCommandHandler : IRequestHandler<CreateReceiptCommand,
         _context = context;
     }
 
+    // Handle method to process the command
     public async Task<int> Handle(CreateReceiptCommand request, CancellationToken cancellationToken)
     {
 
@@ -49,7 +52,7 @@ public class CreateReceiptCommandHandler : IRequestHandler<CreateReceiptCommand,
             ReceiptDate = request.ReceiptDate
         };
 
-
+        // Create Receipt Items and add to Receipt
         foreach (var receiptItem in request.ReceiptItems)
         {
             var recepitItemEntity = ReceiptItem.Create(receiptItem.ItemName,
@@ -66,6 +69,7 @@ public class CreateReceiptCommandHandler : IRequestHandler<CreateReceiptCommand,
 
         await _context.SaveChangesAsync(cancellationToken);
 
+        // Return the ID of the newly created receipt
         return recepitEntity.Id;
     }
 }

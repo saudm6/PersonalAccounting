@@ -10,34 +10,33 @@ using PersonalAccounting.Domain.Entities;
 
 namespace PersonalAccounting.Application.CreateItems.Queries;
 
-//public record GetReceiptById : IRequest<GetReceiptByIdVm>;
-//public class GetReceiptByIdHandler : IRequestHandler<GetReceiptById, GetReceiptByIdVm>
-//{
-//    private readonly IApplicationDbContext _context;
-//    private readonly IMapper _mapper;
-//    public GetReceiptByIdHandler(IApplicationDbContext context, IMapper mapper)
-//    {
-//        _context = context;
-//        _mapper = mapper;
-//    }
+// Id request for getting receipts Id
+public record GetReceiptById : IRequest<GetReceiptByIdVm>
+{
+    public int Id { get; init; }
+}
 
-//    public async Task<GetReceiptByIdVm> Handle(GetReceiptById request, CancellationToken cancellationToken)
-//    {
+public class GetReceiptByIdHandler : IRequestHandler<GetReceiptById, GetReceiptByIdVm>
+{
+    // Database context and mapper for handling the request
+    private readonly IApplicationDbContext _context;
+    private readonly IMapper _mapper;
+    public GetReceiptByIdHandler(IApplicationDbContext context, IMapper mapper)
+    {
+        _context = context;
+        _mapper = mapper;
+    }
 
-
-//        var receipt = await _context.Receipts
-//            .AsNoTracking()
-//            .Where(r => r.Id == request.Id)
-//            .ProjectTo<ReceiptLookupDto>(_mapper.ConfigurationProvider)
-//            .FirstOrDefaultAsync(cancellationToken);
-//        if (receipt == null)
-//        {
-//            throw new NotFoundException(nameof(Receipt), request.Id);
-//        }
-//        return new GetReceiptByIdVm
-//        {
-//            Id = Guid.NewGuid(),
-//            Receipts = new List<ReceiptLookupDto> { receipt }
-//        };
-//    }
-//}
+    // Create and return the GetReceiptByIdVm object
+    public async Task<GetReceiptByIdVm> Handle(GetReceiptById request, CancellationToken cancellationToken)
+    {
+        return new GetReceiptByIdVm
+        {
+            Receipts = await _context.Receipts
+                .AsNoTracking()
+                .Where(r => r.Id == request.Id)
+                .ProjectTo<ReceiptLookupDto>(_mapper.ConfigurationProvider)
+                .ToListAsync(cancellationToken)
+        };
+    }
+}

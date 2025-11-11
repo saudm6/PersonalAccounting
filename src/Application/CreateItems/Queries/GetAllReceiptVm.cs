@@ -10,11 +10,10 @@ using PersonalAccounting.Domain.Entities;
 
 namespace PersonalAccounting.Application.CreateItems.Queries;
 
-// View Model
+// View Model for getting all receipts
 public class GetAllReceiptVm
 {
+    public Guid Id { get; set; }
     // Reads the collection of Receipts and its Dto
     public IReadOnlyCollection<ReceiptLookupDto> Receipts { get; init; } = Array.Empty<ReceiptLookupDto>();
-
-    // public IReadOnlyCollection<ReceiptDto> ReceiptItems { get; init; } = Array.Empty<ReceiptDto>();
 }

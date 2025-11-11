@@ -13,10 +13,11 @@ using PersonalAccounting.Domain.Enums;
 
 namespace PersonalAccounting.Application.CreateItems.Queries;
 
-
+// Request for getting all receipts
 public record GetAllReceipts : IRequest<GetAllReceiptVm>;
 public class GetAllReceiptsHandler : IRequestHandler<GetAllReceipts, GetAllReceiptVm>
 {
+    // Database context and mapper for handling the request
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
 
