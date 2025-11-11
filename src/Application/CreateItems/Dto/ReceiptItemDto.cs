@@ -20,7 +20,6 @@ public class ReceiptItemDto
         public Mapping()
         {
             CreateMap<ReceiptItem, ReceiptDto>();
-
         }
     }
 }

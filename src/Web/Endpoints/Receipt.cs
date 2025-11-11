@@ -25,4 +25,11 @@ public class Receipt: EndpointGroupBase
         var vm = await sender.Send(new GetAllReceipts());
         return TypedResults.Ok(vm);
     }
+
+    //public async Task<Ok<GetReceiptByIdVm>> GetReceiptById(ISender sender, int id)
+    //{
+    //    var vm = await sender.Send(new GetReceiptById { Id = id });
+    //    return TypedResults.Ok(vm);
+    //}
+
 }

@@ -9,17 +9,19 @@ namespace PersonalAccounting.Application.CreateItems.Dto;
 
 public class ReceiptLookupDto
 {
+    // Dto for receipts with their items
     public int Id { get; init; }
     public string? ReceiptName { get; init; }
     public DateOnly ReceiptDate { get; set; }
     public IReadOnlyCollection<ReceiptDto> ReceiptItems { get; init; } = Array.Empty<ReceiptDto>();
 
+    // Map Recipt to ReceiptLookupDto and ReceiptItemDto to ReceiptLookupDto
     public class Mapping : Profile
     {
         public Mapping()
         {
             CreateMap<Receipt, ReceiptLookupDto>();
-            CreateMap<ReceiptItemDto, ReceiptLookupDto>();
+            CreateMap<ReceiptItemDto, ReceiptItemLookupDto>();
         }
     }
 

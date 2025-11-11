@@ -10,10 +10,6 @@ namespace PersonalAccounting.Application.CreateItems.Dto;
 
 public class ReceiptDto
 {
-    public ReceiptDto()
-    {
-        Items = Array.Empty<ReceiptItemDto>();
-    }
 
     public string? ItemName { get; set; }
     public string? ItemDescription { get; set; }
@@ -21,7 +17,6 @@ public class ReceiptDto
     public int ItemQuantity { get; set; }
     public decimal TotalPrice { get; set; } = 0M;
 
-    public IReadOnlyCollection<ReceiptItemDto> Items { get; init; }
     private class Mapping : Profile
     {
         public Mapping()

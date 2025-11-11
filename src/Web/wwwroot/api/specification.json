@@ -903,34 +903,6 @@
           "totalPrice": {
             "type": "number",
             "format": "decimal"
-          },
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ReceiptItemDto"
-            }
-          }
-        }
-      },
-      "ReceiptItemDto": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "itemName": {
-            "type": "string",
-            "nullable": true
-          },
-          "itemDescription": {
-            "type": "string",
-            "nullable": true
-          },
-          "itemPrice": {
-            "type": "number",
-            "format": "decimal"
-          },
-          "itemQuantity": {
-            "type": "integer",
-            "format": "int32"
           }
         }
       },
