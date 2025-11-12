@@ -17,7 +17,6 @@ public class CreateReceiptCommand : IRequest<int>
     // Receipt details for the command
     public string? ReceiptName { get; init; }
     public DateOnly ReceiptDate { get; init; }
-
     public List<ReceiptItemR> ReceiptItems { get; init; } = new();
 }
 

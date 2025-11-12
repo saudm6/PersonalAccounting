@@ -949,6 +949,10 @@
             "type": "string",
             "format": "date"
           },
+          "receiptTotal": {
+            "type": "number",
+            "format": "decimal"
+          },
           "receiptItems": {
             "type": "array",
             "items": {
@@ -1010,6 +1014,14 @@
           "dateOnly": {
             "type": "string",
             "format": "date"
+          },
+          "itemPrice": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "itemQuantity": {
+            "type": "integer",
+            "format": "int32"
           },
           "receiptItems": {
             "type": "array",
