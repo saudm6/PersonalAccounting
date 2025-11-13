@@ -1007,6 +1007,10 @@
             "type": "integer",
             "format": "int32"
           },
+          "itemDescription": {
+            "type": "string",
+            "nullable": true
+          },
           "receiptName": {
             "type": "string",
             "nullable": true
@@ -1026,133 +1030,30 @@
           "receiptItems": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ReceiptItem"
+              "$ref": "#/components/schemas/ReceiptItemCmd"
             }
           }
         }
       },
-      "ReceiptItem": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseAuditableEntity"
-          },
-          {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "itemName": {
-                "type": "string",
-                "nullable": true
-              },
-              "itemDescription": {
-                "type": "string",
-                "nullable": true
-              },
-              "itemPrice": {
-                "type": "number",
-                "format": "decimal"
-              },
-              "itemQuantity": {
-                "type": "integer",
-                "format": "int32"
-              },
-              "totalPrice": {
-                "type": "number",
-                "format": "decimal"
-              },
-              "receiptId": {
-                "type": "integer",
-                "format": "int32"
-              },
-              "receipt": {
-                "$ref": "#/components/schemas/Receipt"
-              }
-            }
-          }
-        ]
-      },
-      "Receipt": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseAuditableEntity"
-          },
-          {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "receiptName": {
-                "type": "string",
-                "nullable": true
-              },
-              "receiptDate": {
-                "type": "string",
-                "format": "date"
-              },
-              "receiptTotal": {
-                "type": "number",
-                "format": "decimal"
-              },
-              "receiptItems": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/ReceiptItem"
-                }
-              }
-            }
-          }
-        ]
-      },
-      "BaseAuditableEntity": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseEntity"
-          },
-          {
-            "type": "object",
-            "x-abstract": true,
-            "additionalProperties": false,
-            "properties": {
-              "created": {
-                "type": "string",
-                "format": "date-time"
-              },
-              "createdBy": {
-                "type": "string",
-                "nullable": true
-              },
-              "lastModified": {
-                "type": "string",
-                "format": "date-time"
-              },
-              "lastModifiedBy": {
-                "type": "string",
-                "nullable": true
-              }
-            }
-          }
-        ]
-      },
-      "BaseEntity": {
+      "ReceiptItemCmd": {
         "type": "object",
-        "x-abstract": true,
         "additionalProperties": false,
         "properties": {
-          "id": {
+          "itemName": {
+            "type": "string"
+          },
+          "itemDescription": {
+            "type": "string"
+          },
+          "itemPrice": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "itemQuantity": {
             "type": "integer",
             "format": "int32"
-          },
-          "domainEvents": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/BaseEvent"
-            }
           }
         }
-      },
-      "BaseEvent": {
-        "type": "object",
-        "x-abstract": true,
-        "additionalProperties": false
       },
       "PaginatedListOfTodoItemBriefDto": {
         "type": "object",

@@ -55,12 +55,20 @@ public class UpdateReceiptCommandHandler : IRequestHandler<UpdateReceiptCommand>
 
             // Clear existing items
             entity.ReceiptItems.Clear();
-            
+
             // Add new items
             foreach (var item in request.ReceiptItems)
             {
-                // Add each item to the receipt
-                entity.AddItem(id: request.Id, itemName: item.ItemName, recepitItemEntity: );
+                var receiptItem = ReceiptItem.Create(
+                    itemName: item.ItemName,
+                    itemPrice: item.ItemPrice,
+                    itemQuantity: item.ItemQuantity,
+                    itemDescription: item.ItemDescription,
+                    recepitEntity: entity
+                );
+
+                // Add items to receipts
+                entity.AddItem(recepitItemEntity: receiptItem);
             }
         }
 

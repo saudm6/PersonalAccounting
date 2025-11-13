@@ -15,7 +15,7 @@ public class Receipt : BaseAuditableEntity
     public decimal ReceiptTotal { get; set; } = 0M;
     public ICollection<ReceiptItem> ReceiptItems { get; set; } = new List<ReceiptItem>();
 
-    public void AddItem(int id, string itemName, ReceiptItem recepitItemEntity)
+    public void AddItem(ReceiptItem recepitItemEntity)
     {
         if (recepitItemEntity is null)
             throw new ArgumentNullException(nameof(recepitItemEntity));
@@ -54,7 +54,7 @@ public class ReceiptItem : BaseAuditableEntity
             ItemDescription = itemDescription,
             ItemPrice = itemPrice,
             ItemQuantity = itemQuantity,
-            Receipt = recepitEntity,
+            Receipt = recepitEntity
             // TotalPrice = itemPrice * Convert.ToDecimal(itemQuantity)
         };
 
